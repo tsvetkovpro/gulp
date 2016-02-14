@@ -2,9 +2,7 @@
 
 const gulp = require('gulp');
 
-gulp.task(hello);
-
-function hello(callback) {
+gulp.task("d:d", function (callback) {
 	console.log("Hello!");
 	callback();
-}
+});
