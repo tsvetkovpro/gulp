@@ -3,7 +3,7 @@
 const gulp = require('gulp');
 
 gulp.task('default', function() {
-	return gulp.src('source/**/*.*')
+	return gulp.src('source/**/*.{js,css}')
 		.on('data', function(file) {
 			console.log({
 				contents: file.contents,
@@ -18,9 +18,6 @@ gulp.task('default', function() {
 				extname: file.extname
 				});
 			})
-		.pipe(gulp.dest(function(file) {
-				return file.extname == '.js' ? 'js' :
-					file.extname == '.css' ? 'css' : 'dest';
-			}));
+		.pipe(gulp.dest('dest'));
 	});
 
