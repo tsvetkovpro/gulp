@@ -10,6 +10,7 @@ gulp.task('default', function() {
 				path: file.path,
 				cwd: file.cwd,
 				base: file.base,
+				//path component helpers
 				relative: file.relative,
 				dirname: file.dirname,
 				basename: file.basename,
@@ -17,6 +18,9 @@ gulp.task('default', function() {
 				extname: file.extname
 				});
 			})
-		.pipe(gulp.dest('dest'));
+		.pipe(gulp.dest(function(file) {
+				return file.extname == '.js' ? 'js' :
+					file.extname == '.css' ? 'css' : 'dest';
+			}));
 	});
 
