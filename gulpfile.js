@@ -2,29 +2,21 @@
 
 const gulp = require('gulp');
 
-gulp.task("hello", function (callback) {
-	console.log("Hello!");
-	callback();
-});
-
-gulp.task('example:promise', function() {
-	return new Promise((resolve, reject) => {
-		// ....
-		resolve('result');
-		});
+gulp.task('default', function() {
+	return gulp.src('source/**/*.*')
+		.on('data', function(file) {
+			console.log({
+				contents: file.contents,
+				path: file.path,
+				cwd: file.cwd,
+				base: file.base,
+				relative: file.relative,
+				dirname: file.dirname,
+				basename: file.basename,
+				stem: file.stem,
+				extname: file.extname
+				});
+			})
+		.pipe(gulp.dest('dest'));
 	});
 
-gulp.task('example:stream', function() {
-	//прочитать всё из потока и сзатем сделать
-	return require('fs').createReadStream(__filename);
-	});
-
-gulp.task('example:process', function() {
-	//return child process
-	return require('child_process').spawn('ls', ['.'], {stdio: 'inherit'});
-	});
-
-gulp.task('example', gulp.series('hello', 'example:promise', 'example:stream', 'example:process'));
-
-//параллельные задачи
-gulp.task('example-pll', gulp.parallel('hello', 'example:promise', 'example:stream', 'example:process'));
