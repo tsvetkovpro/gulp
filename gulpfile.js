@@ -1,23 +1,11 @@
 'use strict';
 
 const gulp = require('gulp');
+const stylus = require('gulp-stylus');
 
-gulp.task('default', function() {
-	return gulp.src('source/**/*.{js,css}')
-		.on('data', function(file) {
-			console.log({
-				contents: file.contents,
-				path: file.path,
-				cwd: file.cwd,
-				base: file.base,
-				//path component helpers
-				relative: file.relative,
-				dirname: file.dirname,
-				basename: file.basename,
-				stem: file.stem,
-				extname: file.extname
-				});
-			})
-		.pipe(gulp.dest('dest'));
-	});
+gulp.task('styles', function() {
+	return gulp.src('frontend/styles/**/*styl')
+		.pipe(stylus())
+		.pipe(gulp.dest('public'));
+});
 
