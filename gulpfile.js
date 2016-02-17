@@ -9,7 +9,7 @@ gulp.task('styles', function() {
 	return gulp.src('frontend/styles/main.styl')
 		.pipe(sourcemaps.init())
 		.pipe(stylus())
-		.pipe(sourcemaps.write())
+		.pipe(sourcemaps.write('.'))
 		.pipe(gulp.dest('public'));
 });
 
