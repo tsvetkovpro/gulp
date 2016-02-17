@@ -12,7 +12,9 @@ const isDevelopment = !process.env.NODE_ENV || process.env.NODE_ENV == 'developm
 gulp.task('styles', function() {
 
 	return gulp.src('frontend/styles/main.styl')
-		.pipe(gulpIf(isDevelopment, sourcemaps.init()))
+		.pipe(gulpIf(function(file) {
+				return file.extname == '.js';
+			}, sourcemaps.init()))
 		.pipe(stylus())
 		.pipe(gulpIf(isDevelopment, sourcemaps.write()))
 		.pipe(gulp.dest('public'));
