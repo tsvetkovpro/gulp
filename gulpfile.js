@@ -12,7 +12,7 @@ const isDevelopment = !process.env.NODE_ENV || process.env.NODE_ENV == 'developm
 
 gulp.task('styles', function() {
 
-	return gulp.src('frontend/styles/main.styl')
+	return gulp.src('frontend/styles/*.styl')
 		.pipe(gulpIf(isDevelopment, sourcemaps.init()))
 		.pipe(stylus())
 		.pipe(gulpIf(isDevelopment, sourcemaps.write()))

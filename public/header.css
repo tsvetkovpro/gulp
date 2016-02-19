@@ -1,0 +1,8 @@
+.header {
+  background: url("/img/cat.svg") left center no-repeat;
+  background-size: contain;
+  padding-left: 50px;
+  font-size: 40px;
+}
+
+/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbImhlYWRlci5zdHlsIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0VBQ0MsWUFBMkIsMENBQTNCO0VBQ0EsaUJBQWdCLFFBQWhCO0VBQ0EsY0FBYSxLQUFiO0VBQ0EsV0FBVSxLQUFWIiwiZmlsZSI6ImhlYWRlci5jc3MiLCJzb3VyY2VSb290IjoiL3NvdXJjZS8iLCJzb3VyY2VzQ29udGVudCI6WyIuaGVhZGVyXHJcblx0YmFja2dyb3VuZCB1cmwoL2ltZy9jYXQuc3ZnKSBsZWZ0IGNlbnRlciBuby1yZXBlYXRcclxuXHRiYWNrZ3JvdW5kLXNpemUgY29udGFpblxyXG5cdHBhZGRpbmctbGVmdCA1MHB4XHJcblx0Zm9udC1zaXplIDQwcHgiXX0= */
