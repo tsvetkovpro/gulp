@@ -45,7 +45,6 @@ gulp.task('watch', function() {
 })
 
 
-
 gulp.task('serve', function() {
 	browserSync.init({
 			server: 'public'
@@ -57,3 +56,5 @@ gulp.task('serve', function() {
 
 gulp.task('dev',
 	gulp.series('build', gulp.parallel('watch', 'serve')));
+
+
