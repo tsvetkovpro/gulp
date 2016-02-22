@@ -7,6 +7,7 @@ const debug = require('gulp-debug');
 const gulpIf = require('gulp-if');
 const del = require('del');
 const browserSync = require('browser-sync').create();
+const notify = require('gulp-notify');
 
 const isDevelopment = !process.env.NODE_ENV || process.env.NODE_ENV == 'development';
 
@@ -15,6 +16,10 @@ gulp.task('styles', function() {
 	return gulp.src('frontend/styles/main.styl')
 		.pipe(gulpIf(isDevelopment, sourcemaps.init()))
 		.pipe(stylus())
+		.on('error', function(err) {
+			console.log(err.message);
+			this.end();
+		})
 		.pipe(gulpIf(isDevelopment, sourcemaps.write()))
 		.pipe(gulp.dest('public'));
 });
