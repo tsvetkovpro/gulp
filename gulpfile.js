@@ -8,22 +8,20 @@ const gulpIf = require('gulp-if');
 const del = require('del');
 const browserSync = require('browser-sync').create();
 const notify = require('gulp-notify');
+const combiner = require('stream-combiner2').obj;
 
 const isDevelopment = !process.env.NODE_ENV || process.env.NODE_ENV == 'development';
 
 gulp.task('styles', function() {
 
-	return gulp.src('frontend/styles/main.styl')
-		.pipe(gulpIf(isDevelopment, sourcemaps.init()))
-		.pipe(stylus())
-		.on('error', notify.onError(function(err) {
-			return {
-				title: 'Styles',
-				message: err.message
-			};
-		}))
-		.pipe(gulpIf(isDevelopment, sourcemaps.write()))
-		.pipe(gulp.dest('public'));
+	return combiner(
+		gulp.src('frontend/styles/main.styl'),
+		gulpIf(isDevelopment, sourcemaps.init()),
+		stylus(),
+		gulpIf(isDevelopment, sourcemaps.write()),
+		gulp.dest('public')
+	).on('error', notify.onError());
+
 });
 
 
