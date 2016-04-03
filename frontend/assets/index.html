@@ -1,13 +1,32 @@
-<!doctype html>
+<!DOCTYPE HTML>
 <html>
-    <head>
-        <meta charset="utf-8">
-        <meta name="description" content="">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>Добро пожаловать</title>
-        <link rel="stylesheet" href="main.css">
-    </head>
-    <body>
-        <div class="header">Welcome!!</div>
-    </body>
+<head>
+  <link href="/styles/index.css" rel="stylesheet">
+  <meta charset="utf-8">
+</head>
+<body class="page">
+
+  <div class="page__header" onclick="alert(1)">
+    <i class="icon page__header-cat"></i>Welcome!!!
+  </div>
+
+  <div id="sweets-menu" class="menu menu_open">
+    <a href="#" class="menu__title" onclick="this.parentNode.classList.toggle('menu_open'); return false">
+      <i class="icon menu__title-icon"></i>Menu
+    </a>
+    <ul class="menu__list">
+      <li>Торт</li>
+      <li>Пончик</li>
+      <li>Пирожное</li>
+      <li>Шоколадка</li>
+      <li>Мороженое</li>
+    </ul>
+  </div>
+
+
+  <div class="myelem__header2">
+    <i class="icon myelem__header2-dog"></i>Welcome!!
+  </div>
+
+</body>
 </html>
