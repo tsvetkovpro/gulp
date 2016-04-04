@@ -10,34 +10,76 @@ const browserSync = require('browser-sync').create();
 const resolver = require('stylus').resolver;
 const svgSprite = require('gulp-svg-sprite');
 const gulpIf = require('gulp-if');
+const cssnano = require('gulp-cssnano');
+const rev = require('gulp-rev');
+const revReplace = require('gulp-rev-replace');
+const combine = require('stream-combiner2').obj;
+const fs = require('fs');
+const plumber = require('gulp-plumber');
+const notify = require('gulp-notify');
+
+const isDevelopment = !process.env.NODE_ENV || process.env.NODE_ENV == 'development';
 
 gulp.task('styles', function() {
 
+  let resolve = resolver();
+  let manifest;
+  if (!isDevelopment) {
+    manifest = require('./manifest/assets.json');
+  }
+
+  function url(urlLiteral) {
+    urlLiteral = resolve.call(this, urlLiteral);
+    for (let asset in manifest) {
+      if (urlLiteral.val == `url("${asset}")`) {
+        urlLiteral.string = urlLiteral.val = `url("${manifest[asset]}")`;
+      }
+    }
+    return urlLiteral;
+  }
+
+  url.options = resolve.options;
+  url.raw = true;
+
   return gulp.src('frontend/styles/index.styl')
-      .pipe(sourcemaps.init())
+      .pipe(plumber({
+        errorHandler: notify.onError(err => ({
+          title: 'Styles',
+          message: err.message
+        }))
+      }))
+      .pipe(gulpIf(isDevelopment, sourcemaps.init()))
       .pipe(stylus({
         import: process.cwd() + '/tmp/styles/sprite',
         define: {
-          url: resolver()
+          url: url
         }
       }))
-      .pipe(sourcemaps.write())
-      .pipe(gulp.dest('public/styles'));
+      .pipe(gulpIf(isDevelopment, sourcemaps.write()))
+      .pipe(gulpIf(!isDevelopment, combine(cssnano(), rev())))
+      .pipe(gulp.dest('public/styles'))
+      .pipe(gulpIf(!isDevelopment, combine(rev.manifest('css.json'), gulp.dest('manifest'))));
+
 
 });
 
 gulp.task('clean', function() {
-  return del(['public', 'tmp']);
+  return del(['public', 'tmp', 'manifest']);
 });
 
 gulp.task('assets', function() {
   return gulp.src('frontend/assets/**/*.*', {since: gulp.lastRun('assets')})
+      .pipe(gulpIf(!isDevelopment, revReplace({
+        manifest: gulp.src('manifest/css.json', {allowEmpty: true})
+      })))
       .pipe(gulp.dest('public'));
 });
 
 gulp.task('styles:assets', function() {
   return gulp.src('frontend/styles/**/*.{png,jpg}', {since: gulp.lastRun('styles:assets')})
-      .pipe(gulp.dest('public/styles'));
+      .pipe(gulpIf(!isDevelopment, rev()))
+      .pipe(gulp.dest('public/styles'))
+      .pipe(gulpIf(!isDevelopment, combine(rev.manifest('assets.json'), gulp.dest('manifest'))));
 });
 
 gulp.task('styles:svg', function() {
@@ -46,7 +88,7 @@ gulp.task('styles:svg', function() {
         mode: {
           css: {
             dest:       '.', // where to put style && sprite, default: 'css'
-            bust:       false,
+            bust:       !isDevelopment,
             sprite:     'sprite.svg', // filename for sprite relative to dest
             layout:     'vertical',
             prefix:     '$', // .svg-
@@ -59,7 +101,6 @@ gulp.task('styles:svg', function() {
           }
         }
       }))
-      .pipe(debug({title: 'styles:svg'}))
       .pipe(gulpIf('*.styl', gulp.dest('tmp/styles'), gulp.dest('public/styles')));
 });
 
