@@ -29,6 +29,12 @@
 ---
 
 
+#### Таски:
+
+
+![gulp-tasks](./tasks-gulp.jpg)
+
+
 
 
 
