@@ -20,12 +20,13 @@
 
 ---
 
-
 `.\node_modules\.bin;..\node_modules\.bin;..\..\node_modules\.bin`
 
 ---
 
 `npm i -D gulp-plugin_name`
+
+---
 
 
 
