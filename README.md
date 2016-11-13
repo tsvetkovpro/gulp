@@ -1,8 +1,25 @@
-create gulpfile for building system
+# Код скринкаста по Gulp.
+
+
+### Gulp – замечательная система сборки и задач, но при всём обилии информации в интернете о ней – это, как правило, либо самые основы, либо «готовые решения», чтобы адаптировать которые нужно понимание, как что работает.
+
+### В этом скринкасте я постараюсь восполнить этот «недостающий фрагмент». Не просто «вот такой код работает», а «почему и как он работает», и как его получить. Это сделает использование готовых решений легче и приятнее. И позволит создавать свои.
+
+---
+
+
+`
+.\node_modules\.bin;
+..\node_modules\.bin;
+..\..\node_modules\.bin
+`
+
+---
+
+`npm i -D gulp-plugin_name`
 
 
 
-cmd windows path for using gulp localy (and git shell of cource based localy in smartgit software directory):
-;.\node_modules\.bin;..\node_modules\.bin;..\..\node_modules\.bin
 
-npm i -D gulp-plugin_name
+
+
